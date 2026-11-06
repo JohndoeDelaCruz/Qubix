@@ -237,7 +237,7 @@ test("scene selection keeps personal results private and derives countdown time 
 
 test("both views start with sound on at 100%, migrate old defaults once, and retain new preferences", () => {
   const saved = new Map<string, string>([
-    ["quizhost:sound:host", JSON.stringify({ muted: true, music: false, effects: false, volume: 0.3 })],
+    ["qubix:sound:host", JSON.stringify({ muted: true, music: false, effects: false, volume: 0.3 })],
   ]);
   const storage = { getItem: (key: string) => saved.get(key) ?? null };
   for (const role of ["host", "student"] as const) {

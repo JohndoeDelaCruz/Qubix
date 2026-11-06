@@ -10,10 +10,10 @@ import {
   Trash2,
   Upload,
 } from "lucide-react";
-import { useRef } from "react";
+import { useRef, type CSSProperties } from "react";
 import type { Quiz } from "../../../../shared/types";
 import { Pill } from "../../components/Pill";
-import { AnswerShape } from "../../components/game/AnswerShape";
+import { PhysicsArt } from "../../components/PhysicsArt";
 import { api, download } from "../../lib";
 import { APP_VERSION } from "../../release";
 import { MAX_BACKUP_BYTES } from "../../../../shared/media";
@@ -44,10 +44,8 @@ export function QuizLibrary({
     <>
       <div className="page-heading">
         <div>
-          <h1>
-            Ready, set, quiz<span className="green-text">!</span>
-          </h1>
-          <p>Pick a quiz, gather your players, and make learning a game.</p>
+          <h1>Quiz library</h1>
+          <p>Your quizzes, ready to play.</p>
         </div>
         <button className="btn primary" onClick={onCreate}>
           <Plus size={18} />
@@ -56,47 +54,25 @@ export function QuizLibrary({
       </div>
       <section className="hero-banner">
         <div>
-          <Pill kind="soft">CLASSROOM PLAY, ANYWHERE</Pill>
+          <Pill kind="soft">CLASSROOM PLAY</Pill>
           <h2>
-            Big questions.
+            Good questions.
             <br />
-            Bigger classroom energy.
+            Great classroom moments.
           </h2>
           <p>
-            Play on student phones or bring teams together
-            <br className="desktop-break" /> around one screen. Everything stays
-            offline.
+            Play on student phones or bring teams together on one screen.
           </p>
           <button className="text-link" onClick={onSetup}>
             Get your classroom connected <ArrowUpRight size={18} />
           </button>
         </div>
-        <div className="hero-art" aria-hidden="true">
-          <div className="art-orbit" />
-          <div className="art-tile art-a">
-            <AnswerShape index={0} />
-            <span>A</span>
-          </div>
-          <div className="art-tile art-b">
-            <AnswerShape index={1} />
-            <span>B</span>
-          </div>
-          <div className="art-tile art-c">
-            <AnswerShape index={2} />
-            <span>C</span>
-          </div>
-          <div className="art-tile art-d">
-            <AnswerShape index={3} />
-            <span>D</span>
-          </div>
-          <span className="art-spark">✳</span>
-          <span className="art-caption">FOUR CHOICES. ONE BIG MOMENT.</span>
-        </div>
+        <PhysicsArt />
       </section>
       <div className="section-heading">
         <div>
           <h2>
-            Quiz library <span className="count">{quizzes.length}</span>
+            Your quizzes <span className="count">{quizzes.length}</span>
           </h2>
           <p>Your questions. Your classroom. Your pace.</p>
         </div>
@@ -136,7 +112,7 @@ export function QuizLibrary({
             onClick={async () => {
               try {
                 download(
-                  "quizhost-backup.json",
+                  "qubix-backup.json",
                   JSON.stringify(await api("/backup"), null, 2),
                 );
               } catch (e) {
@@ -151,13 +127,18 @@ export function QuizLibrary({
       </div>
       <div className="quiz-grid">
         {quizzes.map((quiz, index) => (
-          <article className="quiz-card" key={quiz.id}>
+          <article
+            className="quiz-card"
+            key={quiz.id}
+            style={{ "--card-delay": `${Math.min(index, 7) * 45}ms` } as CSSProperties}
+          >
             <div className={"quiz-cover cover-" + (index % 4)}>
               <div className="cover-icon">
                 {index % 2 ? <BookOpen size={42} /> : <Sparkles size={45} />}
               </div>
               <Pill>READY TO PLAY</Pill>
               <span className="cover-lines" />
+              <span className="physics-cover-marble" aria-hidden="true" />
             </div>
             <div className="quiz-card-body">
               <div className="quiz-card-title">
@@ -212,7 +193,7 @@ export function QuizLibrary({
             </div>
           </article>
         ))}
-        <button className="new-quiz-card" onClick={onCreate}>
+        {quizzes.length === 0 && <button className="new-quiz-card" onClick={onCreate}>
           <span>
             <Plus size={25} />
           </span>
@@ -225,10 +206,10 @@ export function QuizLibrary({
           <strong>
             Create a new quiz <ArrowUpRight size={16} />
           </strong>
-        </button>
+        </button>}
       </div>
       <div className="bottom-note">
-        <span>QUIZHOST / {APP_VERSION}</span>
+        <span>QUBIX / {APP_VERSION}</span>
       </div>
     </>
   );

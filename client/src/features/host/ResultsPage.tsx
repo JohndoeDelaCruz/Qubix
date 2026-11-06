@@ -5,6 +5,7 @@ import { Scores } from "../../components/game/Scores";
 import { download } from "../../lib";
 import { resultCSV } from "../../../../shared/resultCSV";
 import { TEAM_GAMES } from "../../../../shared/teamGames";
+import { PhysicsMark } from "../../components/PhysicsBackdrop";
 
 export function ResultsPage({ results }: { results: Result[] }) {
   return (
@@ -19,14 +20,16 @@ export function ResultsPage({ results }: { results: Result[] }) {
         </div>
       </div>
       {!results.length ? (
-        <div className="empty-state card">
+        <div className="empty-state card physics-marked">
+          <PhysicsMark />
           <Trophy size={42} />
           <h2>The first win is waiting.</h2>
           <p>Finish a game to see scores here.</p>
         </div>
       ) : (
         results.map((result) => (
-          <div className="result-card card" key={result.id}>
+          <div className="result-card card physics-marked" key={result.id}>
+            <PhysicsMark />
             <div className="section-heading">
               <div>
                 <Pill>
@@ -47,7 +50,7 @@ export function ResultsPage({ results }: { results: Result[] }) {
                 className="btn secondary small"
                 onClick={() =>
                   download(
-                    "quizhost-results.csv",
+                    "qubix-results.csv",
                     resultCSV(result),
                     "text/csv;charset=utf-8",
                   )

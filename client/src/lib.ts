@@ -1,14 +1,15 @@
 import { io, type Socket } from "socket.io-client";
 import type { Ack } from "../../shared/types";
+import { readStoredValue } from "./storage";
 export const studentPage = location.pathname === "/join";
 const hashToken = new URLSearchParams(location.hash.slice(1)).get("host");
 if (hashToken && !studentPage) {
-  sessionStorage.setItem("quizhost:host", hashToken);
+  sessionStorage.setItem("qubix:host", hashToken);
   history.replaceState(null, "", location.pathname);
 }
 export const hostToken = studentPage
   ? ""
-  : (sessionStorage.getItem("quizhost:host") ?? "");
+  : (readStoredValue(sessionStorage, "qubix:host") ?? "");
 export function connect() {
   return io({ auth: hostToken ? { hostToken } : {}, reconnection: true });
 }

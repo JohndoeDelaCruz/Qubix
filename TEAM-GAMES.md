@@ -1,6 +1,6 @@
-# QuizHost team games
+# Qubix team games
 
-All sixteen games below are included in Windows Beta 12 and the source app. They are QuizHost classroom adaptations with original boards and controls. They do not reproduce every Baamboozle rule or asset.
+All sixteen games below are included in Qubix 0.1.4 and the source app. They are Qubix classroom adaptations with original boards and controls. They do not reproduce every Baamboozle rule or asset.
 
 ## Getting started
 
@@ -48,7 +48,7 @@ Classic and Classic Jr. add surprise tiles relative to the selected question cou
 
 Adventure instead applies the configured probability after a successful move. Its effects change positions within 0–20. Red hazards can be disabled separately; a position effect can end the race.
 
-| Point effect | QuizHost rule |
+| Point effect | Qubix rule |
 | --- | --- |
 | Fairy | Take another team’s positive points. |
 | Thief / Lifesaver | Transfer 5–25 of your points to another team. |

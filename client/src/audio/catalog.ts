@@ -1,3 +1,5 @@
+import { readStoredValue } from "../storage";
+
 export const TRACKS = {
   lobby: { file: "01_lobby_bounce", title: "Lobby Bounce" },
   question: { file: "02_question_energy", title: "Question Energy" },
@@ -19,11 +21,11 @@ export interface SoundSettings {
 export function defaultSoundSettings(_role: AudioRole): SoundSettings {
   return { muted: false, music: true, effects: true, volume: 1 };
 }
-export const soundSettingsKey = (role: AudioRole) => `quizhost:sound:v2:${role}`;
-export function readSoundSettings(role: AudioRole, storage?: Pick<Storage, "getItem">): SoundSettings {
+export const soundSettingsKey = (role: AudioRole) => `qubix:sound:v2:${role}`;
+export function readSoundSettings(role: AudioRole, storage?: Pick<Storage, "getItem"> & Partial<Pick<Storage, "setItem">>): SoundSettings {
   const defaults = defaultSoundSettings(role);
   try {
-    const saved = JSON.parse((storage ?? localStorage).getItem(soundSettingsKey(role)) ?? "null");
+    const saved = JSON.parse(readStoredValue(storage ?? localStorage, soundSettingsKey(role)) ?? "null");
     if (!saved || typeof saved !== "object") return defaults;
     return {
       muted: typeof saved.muted === "boolean" ? saved.muted : defaults.muted,

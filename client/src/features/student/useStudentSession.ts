@@ -6,6 +6,7 @@ import type { Identity } from "./identity";
 import { saveIdentity, storedIdentity } from "./identity";
 import { useAudio } from "../../audio/AudioProvider";
 import { useJoinNotices } from "../../components/game/useJoinNotices";
+import { removeStoredValue } from "../../storage";
 
 export function useStudentSession() {
   const { unlock } = useAudio();
@@ -45,7 +46,7 @@ export function useStudentSession() {
     s.on("connect_error", () => setConnected(false));
     s.on("room:state", (data: RoomView) => setRoom(data));
     s.on("room:closed", () => {
-      sessionStorage.removeItem("quizhost:player");
+      removeStoredValue(sessionStorage, "qubix:player");
       setIdentity(null);
       setRoom(null);
       setPin("");

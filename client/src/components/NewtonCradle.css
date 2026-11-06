@@ -1,0 +1,17 @@
+.lobby-cradle {
+  position: relative; width: 260px; max-width: 100%;
+  margin: 18px auto 0; pointer-events: none;
+}
+.lobby-cradle svg { display: block; width: 100%; height: auto; overflow: visible; }
+.cradle-frame { fill: none; stroke: #a98ad6; stroke-width: 7; stroke-linecap: round; }
+.cradle-string { fill: none; stroke: #cbb7e5; stroke-width: 2; }
+.cradle-ball { filter: drop-shadow(0 5px 4px #10092250); }
+.cradle-base { fill: #8060af; }
+.cradle-arm:first-child { animation: cradle-left 2.4s ease-in-out infinite; }
+.cradle-arm:last-child { animation: cradle-right 2.4s ease-in-out infinite; }
+@keyframes cradle-left { 0%, 100% { transform: rotate(30deg); } 25%, 75% { transform: rotate(0); } }
+@keyframes cradle-right { 0%, 25%, 75%, 100% { transform: rotate(0); } 50% { transform: rotate(-30deg); } }
+.lobby-cradle[data-motion-paused] .cradle-arm { animation-play-state: paused; }
+.fade-snapshot .cradle-arm { animation: none !important; }
+@media (prefers-reduced-motion: reduce) { .lobby-cradle .cradle-arm { animation: none; } }
+[data-reduced-motion="true"] .lobby-cradle .cradle-arm { animation: none; }

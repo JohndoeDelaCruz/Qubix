@@ -1,10 +1,10 @@
 # Grade 7 Physics Team Challenge — Teacher Key
 
-24 original multiple-choice questions for QuizHost's Baamboozle-style shared-screen team mode. This is classroom discussion and reasoning practice.
+24 original multiple-choice questions for Qubix's Baamboozle-style shared-screen team mode. This is classroom discussion and reasoning practice.
 
 ## Import and host
 
-1. Open **Quiz library → Import** and select **QuizHost-Baamboozle-Grade-7-Physics.json**.
+1. Open **Quiz library → Import** and select **Qubix-Baamboozle-Grade-7-Physics.json**.
 2. Import once: the file adds three versions of the same question bank. Choose the version that matches your number of teams below.
 3. Select **Host game → Better together**, enter the team names, and open the room.
 4. Start, let the active team choose an unused tile, and discuss the question. Record its choice and reasoning before reveal or timeout. Reveal the answer, choose **Correct** or **Missed it**, then continue after the rankings.
@@ -26,7 +26,7 @@ Every tile is 100 points. These lengths give equal numbers of turns; they do not
 
 ## Discussion and scoring
 
-- Each question allows 60–90 seconds of answering/discussion, after QuizHost's preparation and reading stages.
+- Each question allows 60–90 seconds of answering/discussion, after Qubix's preparation and reading stages.
 - Suggested rule: award the tile's 100 points only when the team gives the correct choice and explains the central idea shown in the key. Accept equivalent reasoning in English or Filipino; exact wording is not required. Announce the rule before play.
 - **Correct** awards the full tile value; **Missed it** awards zero. The current game does not automatically grade or save oral explanations. A teacher can note the reasoning separately.
 - The follow-up prompts below are optional. Ask them after deciding the tile result so extra discussion does not change one team's scoring rule.

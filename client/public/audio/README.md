@@ -1,4 +1,4 @@
-# QuizHost game music
+# Qubix game music
 
 Imported from the user-supplied `quiz_game_music_pack.zip`, generated 26 October 2026. All eight tracks are included unchanged in MP3 and OGG formats. The supplied pack describes these as newly synthesized original tracks, rather than copies of Kahoot music.
 
@@ -6,7 +6,7 @@ The original pack's README grants the following use:
 
 > You may use these original assets in your quiz application, including commercial projects. Attribution is not requested.
 
-| File stem | QuizHost use |
+| File stem | Qubix use |
 | --- | --- |
 | `01_lobby_bounce` | Lobby and shared-screen team board |
 | `02_question_energy` | Answering |

@@ -8,6 +8,7 @@ const files = asar
   .map((file) => file.split(path.sep).join("/"));
 const required = [
   "/electron/main.cjs",
+  "/electron/data-path.cjs",
   "/dist/server/index.js",
   "/dist/client/index.html",
   "/node_modules/express/index.js",
@@ -22,9 +23,14 @@ const hash = (buffer) =>
   crypto.createHash("sha256").update(buffer).digest("hex");
 const readArchive = (file) =>
   asar.extractFile(archive, file.split("/").join(path.sep));
-const expectedVersion = JSON.parse(
-  fs.readFileSync("package.json", "utf8"),
-).version;
+const expected = JSON.parse(fs.readFileSync("package.json", "utf8"));
+const expectedVersion = expected.version;
+const packaged = JSON.parse(readArchive("package.json").toString("utf8"));
+if (packaged.name !== expected.name || packaged.author !== expected.author)
+  throw new Error("Packaged application branding is stale.");
+const html = readArchive("dist/client/index.html").toString("utf8");
+if (!html.includes(`<title>${expected.build.productName} ·`))
+  throw new Error("Packaged browser title is stale.");
 if (
   JSON.parse(readArchive("package.json").toString("utf8")).version !==
   expectedVersion
@@ -47,6 +53,11 @@ if (
   hash(fs.readFileSync("electron/main.cjs"))
 )
   throw new Error("Packaged desktop entry point is stale.");
+if (
+  hash(readArchive("electron/data-path.cjs")) !==
+  hash(fs.readFileSync("electron/data-path.cjs"))
+)
+  throw new Error("Packaged desktop data migration is stale.");
 for (const file of fs.readdirSync("dist/client/assets")) {
   if (
     hash(readArchive("dist/client/assets/" + file)) !==

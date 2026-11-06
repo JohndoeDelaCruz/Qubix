@@ -13,6 +13,8 @@ import "./celebrations.css";
 import "./features/student/student-screen.css";
 import "./features/student/student-lobby.css";
 import "./features/host/team/team-games.css";
+import "./violet-theme.css";
+import "./components/PhysicsBackdrop.css";
 
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

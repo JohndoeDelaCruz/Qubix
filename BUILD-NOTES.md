@@ -1,4 +1,55 @@
-# QuizHost builds
+# Qubix builds
+
+## Version 0.1.4 — Qubix branding (6 November 2026)
+
+Renamed the current app, Windows product, package metadata, browser/window titles, help text, exports, favicon description, source assets and practice question packs to Qubix. Removed the prerelease badge and suffix. Package verification resolves executable names from the product metadata.
+
+The desktop app copies the earlier installation's complete data directory only when no Qubix data directory exists, preserving the original database and photos. The server copies an older database filename to qubix.sqlite once and subsequently prefers Qubix data. Browser sound, motion, teacher-token and player-session values migrate on the same origin; closing a room clears both player-session keys.
+
+Executable: release/Qubix-0.1.4-Windows.exe. Close the previous app before updating and reload student pages. Original names below describe historical releases and their existing files; compatibility code still recognizes earlier data and settings.
+
+Validation: TypeScript, production build, desktop-entry syntax and all 65 automated tests passed. Browser checks confirmed Qubix branding with no prerelease badge on teacher and student screens, the current library version, updated setup wording and teacher authorization after reload. Package, icon and portable-payload checks passed across 5,461 archive entries, with all sixteen game labels and seven icon sizes verified. Native Windows startup and physical classroom acceptance testing remain pending.
+
+EXE size: 107,951,258 bytes. SHA-256: ffb7f6843523b7d8b617007ea60237c24decb8a53c8021fac79a1649eb075d89.
+
+
+## Version 0.1.4 Beta 15 — Full mix backgrounds (3 November 2026)
+
+Applied the approved Full mix to the existing Violet layout: top navigation, hero illustration, quiz cards, game rules, music and saved data retain their existing structure. Header/page backgrounds include orbital paths, particles, pendulums, springs, pulleys, levers, magnets, gyroscopes, rolling balls, dominoes, balances and circuit pulses. Static corner art appears in results, setup and lobby cards; the editor's question sidebar has a compact background. Student avatars remain floating and draggable.
+
+The memoized decorative layers are local, aria-hidden and pointer-transparent. CSS sequences settle after a few cycles, pause in hidden pages and pause at lower opacity in active question stages. The existing motion preference and device reduced-motion setting suppress them. No per-frame JavaScript or new network dependency was added. Backgrounds are absolutely positioned and clipped to their own bounds; the fixed student viewport remains in place.
+
+TypeScript, production build and all 59 automated tests passed. Browser verification uses isolated work/ fixtures. Native Windows launch and physical classroom acceptance testing remain pending.
+
+Browser checks covered library/navigation, editor question tabs and image zoom, setup/results, two student clients joining and reconnecting, keyboard movement of both the current student's and a classmate's avatar, motion controls, preparation, answer submission, rankings and saved final results. Student layouts at 390×844, 320×568 and 667×375 had no document scrolling. Active-question backgrounds were confirmed paused at lower opacity. No browser console errors were reported.
+
+Windows executable: release/QuizHost-0.1.4-beta.15-Windows.exe. Finish the current game, close the previous EXE and reload student pages after updating.
+
+Package inspection verified Beta 15 metadata, matching frontend/server bundles, all sixteen game labels, local media and the SQLite runtime. Both executables contain all seven custom icon sizes. The portable payload matches the unpacked app; its 5,460 entries exclude local data, fixtures, environment files and internal notes. EXE size: 107,938,913 bytes. SHA-256: a6e88eb6d4a8ad702e163069c6776615fed8aafa02e736b057b46a49dbf54673.
+
+## Version 0.1.4 Beta 14 — lobby motion (1 November 2026)
+
+The teacher lobby adds a five-ball Newton’s cradle beside the roster, retaining the PIN, QR, student address and Start control. Student avatars gain noninteractive orbit rings and dots that follow their existing floating and dragged positions. The current student's orbit uses a lime accent. No avatar cards were added. Pointer capture, keyboard movement, per-device positions, reconnection and viewport-sized roster pages are retained.
+
+The effects use CSS transforms with no animation timers or per-avatar visibility listeners. One visibility listener per mounted lobby pauses decoration in background pages. The animation toggle and device reduced-motion preference stop the new effects. Leaving the lobby removes them through the existing stage crossfade; the cradle includes a solid gold paint fallback for outgoing snapshots.
+
+TypeScript and production build passed, and all 59 automated tests passed in a serial run. Browser checks covered three students, mouse dragging of both the current student and a classmate, arrow-key movement and Home reset, reduced-motion controls, saved positions across roster pages and resizing, and the transition into question preparation. Student layouts were checked at 390×844, 320×568, 667×375 and 320×400 without document scrolling. Teacher layout was checked at laptop size. Browser console errors were absent. Fixtures were isolated under work/; physical touch devices and native Windows launch still need acceptance testing.
+
+Windows executable: release/QuizHost-0.1.4-beta.14-Windows.exe. App identity and saved-data paths are retained. Finish the current game and close the earlier EXE before opening Beta 14, then reload student pages.
+
+Package inspection verified Beta 14 metadata, matching frontend/server bundles, all sixteen game labels, offline media and the SQLite runtime. All seven custom icon sizes are embedded in both executables, and the portable payload matches the inspected unpacked app. The 5,460 packaged entries exclude local data, fixtures, environment files and internal notes. EXE size: 107,935,924 bytes. SHA-256: 4382beae291d26b8dba1bcb02ad9d32a6542b39127073a74f508d80896e0674e.
+
+## Version 0.1.4 Beta 13 — Violet appearance and motion (1 November 2026)
+
+Applied the approved Violet preview to the running app. The teacher workspace uses a sticky top navigation and horizontal quiz cards. Shared dark surfaces, lavender accents, lime-green actions, editor/photo controls, student pages, rankings, and team-board controls use the new palette. The library illustration contains a pendulum, magnet, atom, and lightning bolt, with general classroom wording. Stored quiz titles/questions are unchanged. The Electron loading background and browser theme color match the new appearance.
+
+Library cards enter in a short stagger, page crossfades use 320 ms, and decorative artwork uses bounded CSS sequences that settle after several cycles. Existing game-stage, welcome, countdown, ranking, trophy, and floating-avatar animations remain. Both the local motion preference and the device reduced-motion setting suppress decorative movement; server deadlines and controls update independently. Dialogs remain above the sticky header, and outgoing page copies retain the matching layout.
+
+TypeScript and production build passed. All 59 tests passed in the final serial run. An earlier parallel run hit a Windows EPERM file lock while a network test renamed its temporary database; the isolated rerun and full serial run passed without changing persistence code. Browser checks covered the library, photo editor and question-tab switch, phone joining and arrivals, five-second preparation, photo questions and answer locking, rankings, result saving, setup, all sixteen game choices, a shared-screen board, and reduced motion. The classroom data used for these checks was isolated under work/.
+
+Windows executable: release/QuizHost-0.1.4-beta.13-Windows.exe. App identity and saved-data paths are retained. Finish the current game and close the earlier EXE before opening Beta 13, then reload student pages. Native Windows launch and physical classroom acceptance testing remain pending.
+
+Package inspection verified Beta 13 metadata, matching frontend/server bundles, all sixteen game labels, offline media, and the SQLite runtime. All seven custom icon sizes are embedded in both executables, and the portable payload matches the inspected unpacked app. The 5,460 packaged entries exclude local data, fixtures, environment files and internal notes. EXE size: 107,934,993 bytes. SHA-256: 879821bdeb2583d3d707dea1e29ac7f5b721b8566fb01fe2b00ce4a094385b33.
 
 ## Version 0.1.4 Beta 12 — sixteen team games (1 November 2026)
 

@@ -1,23 +1,11 @@
 import {
   ArrowRight,
-  BookOpen,
   CheckCircle2,
-  ChevronRight,
-  LayoutGrid,
-  Radio,
-  Settings,
   ShieldCheck,
-  Trophy,
-  Wifi,
-  WifiOff,
   X,
 } from "lucide-react";
-import { MotionToggle } from "../../animation";
 import { Logo } from "../../components/Logo";
-import { Pill } from "../../components/Pill";
 import { useSwitchMotion } from "../../components/useSwitchMotion";
-import { Avatar } from "../../components/game/Avatar";
-import { AudioControls } from "../../audio/AudioControls";
 import { useAudio, useHostAudio } from "../../audio/AudioProvider";
 import { hostToken } from "../../lib";
 import { QuizEditor } from "../quizzes/QuizEditor";
@@ -28,6 +16,8 @@ import { QuizLibrary } from "./QuizLibrary";
 import { ResultsPage } from "./ResultsPage";
 import { Setup } from "./SetupPage";
 import { useHostWorkspace } from "./useHostWorkspace";
+import { WorkspaceHeader } from "./WorkspaceHeader";
+import { PhysicsBackdrop } from "../../components/PhysicsBackdrop";
 
 export function Host() {
   const {
@@ -86,7 +76,7 @@ export function Host() {
           <ShieldCheck size={36} />
           <h1>Teacher access</h1>
           <p>
-            Open QuizHost on the teacher’s laptop. If you started it from the
+            Open Qubix on the teacher’s laptop. If you started it from the
             terminal, use the private teacher link printed there.
           </p>
           <a className="btn primary" href="/join">
@@ -96,6 +86,8 @@ export function Host() {
       </div>
     );
   const active = room && room.phase !== "finished";
+  const roomScene = room?.phase === "lobby" ? "lobby" : room?.phase === "ranking" ? "ranking" : room?.phase === "finished" ? "finished" : "question";
+  const quietBackground = tab === "room" && !!room && roomScene === "question";
   return (
     <div
       onClickCapture={activateSound}
@@ -104,72 +96,16 @@ export function Host() {
         (tab === "room" && room ? " is-playing phase-" + room.phase : "")
       }
     >
-      <aside className="sidebar">
-        <Logo />
-        <div className="workspace-label">YOUR CLASSROOM</div>
-        <nav>
-          {[
-            ["library", BookOpen, "Quiz library"],
-            ["room", Radio, "Live room"],
-            ["results", Trophy, "Results"],
-            ["setup", Settings, "Setup & connection"],
-          ].map(([id, Icon, label]) => {
-            const I = Icon as typeof BookOpen;
-            return (
-              <button
-                key={String(id)}
-                className={tab === id ? "active" : ""}
-                onClick={() => setTab(String(id))}
-              >
-                <I size={19} />
-                <span>{String(label)}</span>
-                {id === "room" && active && <span className="live-dot" />}
-                {id === "library" && <small>{quizzes.length}</small>}
-              </button>
-            );
-          })}
-        </nav>
-        <div className="sidebar-note">
-          <span className="tiny-label">BIG IDEAS. ZERO INTERNET.</span>
-          <LayoutGrid size={40} />
-          <p>
-            A little friendly competition.
-            <br />A whole lot of learning.
-          </p>
-        </div>
-        <div className="sidebar-footer">
-          <Avatar avatar="friendly-robot" size={38} />
-          <div>
-            <strong>Teacher workspace</strong>
-            <small>Saved on this laptop</small>
-          </div>
-          <span className="local-dot" />
-        </div>
-      </aside>
+      <WorkspaceHeader
+        tab={tab}
+        onNavigate={setTab}
+        quizCount={quizzes.length}
+        roomActive={!!active}
+        connected={connected}
+        quietBackground={quietBackground}
+      />
       <main className="main">
-        <header className="topbar">
-          <div className="breadcrumbs">
-            Workspace <ChevronRight size={14} />
-            <strong>
-              {tab === "library"
-                ? "Quiz library"
-                : tab === "room"
-                  ? "Live room"
-                  : tab === "results"
-                    ? "Results"
-                    : "Setup & connection"}
-            </strong>
-          </div>
-          <div className="top-right">
-            <AudioControls />
-            <MotionToggle />
-            <Pill kind={connected ? "green" : "red"}>
-              {connected ? <Wifi size={13} /> : <WifiOff size={13} />}{" "}
-              {connected ? "Local host ready" : "Reconnecting"}
-            </Pill>
-            <Avatar avatar="friendly-robot" size={32} />
-          </div>
-        </header>
+        <PhysicsBackdrop scene={tab === "room" ? roomScene : tab === "results" ? "results" : tab === "setup" ? "setup" : "library"} quiet={quietBackground} />
         <div className="content" ref={pageRef}>
           {error && (
             <div className="alert error" role="alert">

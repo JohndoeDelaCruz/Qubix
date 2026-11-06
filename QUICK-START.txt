@@ -1,13 +1,23 @@
-QUIZHOST 0.1.4 BETA 12 — CLASSROOM PILOT
+QUBIX 0.1.4 — OFFLINE CLASSROOM QUIZZES
 
-1. Open release\QuizHost-0.1.4-beta.12-Windows.exe on the teacher's Windows x64 laptop.
+1. Open release\Qubix-0.1.4-Windows.exe on the teacher's Windows x64 laptop.
 2. Click Host game on the sample quiz.
 3. Choose a play mode and open the room.
 
 UPDATING FROM AN EARLIER BUILD
-Finish the current game and close the earlier QuizHost window.
-Run the new EXE. Saved quizzes and finished results use the same data folder.
+Finish the current game and close the earlier Qubix window.
+Run the new EXE. On first launch, existing desktop data is copied into Qubix
+when its data folder does not already exist. Earlier files remain untouched.
+Existing Qubix data is kept; the two installations are not merged.
 Reload student pages before joining the new room after an update.
+
+VIOLET WORKSPACE
+Use the sticky top navigation for Quiz library, Live room, Results, and Setup.
+The Violet design includes horizontal quiz cards and animated classroom artwork.
+Full mix background details appear across teacher and student pages.
+Ambient movement pauses during active questions and when a page is hidden.
+The teacher lobby has an animated Newton's cradle beside the roster.
+Use Animations on to reduce decorative motion; device preferences are also respected.
 
 INDIVIDUAL PHONE MODE
 Connect the laptop and phones to the same local Wi-Fi.
@@ -15,6 +25,7 @@ Open the address displayed in Setup & connection on each phone.
 Students enter the game PIN and their name.
 Students receive random avatars when joining; they stay on reconnection.
 The student lobby shows classmates' floating avatars and names without cards.
+Orbiting dots follow each avatar; your own avatar has a lime accent.
 Drag any avatar with touch or a mouse; keyboard users can use arrow keys and Home.
 Positions remain inside the lobby and are kept on that device through lobby updates,
 page changes and resizing. Moving avatars only affects the current device's display.
@@ -48,7 +59,7 @@ reveal and judge the answer, then complete any movement or skill shot.
 Memory uses matching cards; Balloon Words uses alternating letter guesses.
 Watch the rankings before continuing. Each game uses its own score units.
 For Balloon Words, add a short Word-game answer in the quiz editor if needed.
-See QuizHost-Team-Games.md for complete rules and question requirements.
+See Qubix-Team-Games.md for complete rules and question requirements.
 Student phones and Wi-Fi are not needed for this mode.
 
 ANIMATIONS
@@ -78,16 +89,16 @@ Choose a JPG, PNG, or WebP file up to 10 MB. Add an optional description.
 Replace or remove the image as needed, then save the quiz.
 The photo appears with the question in both play modes. Click Enlarge
 and use the zoom controls to read details. Photos work offline and are
-included in quiz backups. Photo backups require Beta 4 or later.
+included in quiz backups. Photo backups are supported in this release.
 
 AFTER CLASS
 Finished scores are saved under Results. Export CSV to keep a copy.
 Use Back up in the library to export your quizzes.
 When moving all data to another laptop, copy the entire data folder,
-including quizhost.sqlite and the images folder, with the app closed.
+including qubix.sqlite and the images folder, with the app closed.
 
 BEFORE FINAL DELIVERY
-This is an unsigned beta build. Run a pilot on the school's laptop.
+This Windows build is unsigned. Run a pilot on the school's laptop.
 Test the intended Wi-Fi with real phones before promising 50 players.
 The current room ends if the teacher app closes. Finished results and
 saved quizzes remain on disk. Keep the laptop awake during a game.

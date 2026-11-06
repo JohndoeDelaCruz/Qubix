@@ -63,10 +63,10 @@ function imageResources(file) {
   return images;
 }
 
-const version = require("../package.json").version;
+const { version, build: { productName } } = require("../package.json");
 const targets = process.argv.length > 2 ? process.argv.slice(2) : [
-  "release/win-unpacked/QuizHost.exe",
-  `release/QuizHost-${version}-Windows.exe`,
+  `release/win-unpacked/${productName}.exe`,
+  `release/${productName}-${version}-Windows.exe`,
 ];
 for (const file of targets) {
   const images = imageResources(file);

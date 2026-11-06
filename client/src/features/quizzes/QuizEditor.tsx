@@ -6,6 +6,7 @@ import { AnswerShape } from "../../components/game/AnswerShape";
 import { useSwitchMotion } from "../../components/useSwitchMotion";
 import { freshQuestion } from "./question";
 import { QuestionImageEditor } from "./QuestionImageEditor";
+import { PhysicsBackdrop, PhysicsMark } from "../../components/PhysicsBackdrop";
 
 export function QuizEditor({
   quiz,
@@ -61,7 +62,8 @@ export function QuizEditor({
   }
   return (
     <div className="modal-backdrop editor-backdrop">
-      <div className="editor modal">
+      <div className="editor modal physics-marked">
+        <PhysicsMark kind="energy" />
         {serverError && (
           <div className="inline-error" role="alert">
             {serverError}
@@ -86,6 +88,7 @@ export function QuizEditor({
         </div>
         <div className="editor-layout">
           <aside className="question-sidebar">
+            <PhysicsBackdrop placement="sidebar" scene="editor" />
             <label className="field">
               Quiz title
               <input

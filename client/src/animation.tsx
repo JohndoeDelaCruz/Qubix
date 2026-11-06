@@ -7,6 +7,8 @@ import React, {
 } from "react";
 import { Sparkles } from "lucide-react";
 import type { RoomView } from "../../shared/types";
+import { useDocumentVisible } from "./components/useDocumentVisible";
+import { readStoredValue } from "./storage";
 
 const MotionContext = createContext({
   enabled: true,
@@ -17,12 +19,13 @@ export function useMotion() {
   return useContext(MotionContext);
 }
 export function MotionProvider({ children }: { children: React.ReactNode }) {
+  const visible = useDocumentVisible();
   const [systemReduced, setSystemReduced] = useState(
     () => window.matchMedia("(prefers-reduced-motion: reduce)").matches,
   );
   const [reduced, setReduced] = useState(() => {
     try {
-      return localStorage.getItem("quizhost:reduced-motion") === "true";
+      return readStoredValue(localStorage, "qubix:reduced-motion") === "true";
     } catch {
       return false;
     }
@@ -39,7 +42,7 @@ export function MotionProvider({ children }: { children: React.ReactNode }) {
     setReduced((previous) => {
       const next = !previous;
       try {
-        localStorage.setItem("quizhost:reduced-motion", String(next));
+        localStorage.setItem("qubix:reduced-motion", String(next));
       } catch {
         /* Keep the preference for this session when storage is unavailable. */
       }
@@ -51,6 +54,7 @@ export function MotionProvider({ children }: { children: React.ReactNode }) {
       <div
         className="motion-root"
         data-reduced-motion={enabled ? undefined : "true"}
+        data-page-hidden={visible ? undefined : "true"}
       >
         {children}
       </div>

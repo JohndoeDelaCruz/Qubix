@@ -1,6 +1,7 @@
 import { RotateCcw } from "lucide-react";
 import type { NetworkInfo } from "../../../../shared/types";
 import { ConnectionCard } from "./ConnectionCard";
+import { PhysicsMark } from "../../components/PhysicsBackdrop";
 
 export function Setup({
   network,
@@ -24,11 +25,13 @@ export function Setup({
           Refresh addresses
         </button>
       </div>
-      <section className="card setup-card">
+      <section className="card setup-card physics-marked">
+        <PhysicsMark kind="magnet" />
         <ConnectionCard network={network} />
       </section>
       <div className="setup-grid">
-        <div className="card">
+        <div className="card physics-marked">
+          <PhysicsMark />
           <span className="setup-number">01</span>
           <h3>One shared local network</h3>
           <p>
@@ -36,16 +39,18 @@ export function Setup({
             point. The router does not need an internet connection.
           </p>
         </div>
-        <div className="card">
+        <div className="card physics-marked">
+          <PhysicsMark kind="magnet" />
           <span className="setup-number">02</span>
           <h3>Let the classroom through</h3>
           <p>
-            If Windows asks, allow QuizHost on your trusted private network.
+            If Windows asks, allow Qubix on your trusted private network.
             Guest Wi-Fi or client isolation can prevent phones reaching the
             laptop.
           </p>
         </div>
-        <div className="card">
+        <div className="card physics-marked">
+          <PhysicsMark kind="energy" />
           <span className="setup-number">03</span>
           <h3>Try one phone first</h3>
           <p>
@@ -55,7 +60,8 @@ export function Setup({
           </p>
         </div>
       </div>
-      <div className="card">
+      <div className="card physics-marked">
+        <PhysicsMark />
         <h3>Your data stays with you.</h3>
         <p className="muted">
           Quizzes and finished scores are saved on this laptop. Use Back up in

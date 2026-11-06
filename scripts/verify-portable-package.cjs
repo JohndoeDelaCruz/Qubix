@@ -6,13 +6,13 @@ const { spawnSync } = require("node:child_process");
 const asar = require("@electron/asar");
 const { getPath7za } = require("app-builder-lib/out/toolsets/7zip");
 
-// Inspect the portable archive without launching QuizHost or touching user data.
+// Inspect the portable archive without launching Qubix or touching user data.
 async function main() {
   const root = path.resolve(__dirname, "..");
-  const version = require("../package.json").version;
+  const { version, build: { productName } } = require("../package.json");
   const unpacked = path.join(root, "release/win-unpacked");
   const archive = path.join(unpacked, "resources/app.asar");
-  const exe = path.join(root, `release/QuizHost-${version}-Windows.exe`);
+  const exe = path.join(root, `release/${productName}-${version}-Windows.exe`);
   const entries = asar
     .listPackage(archive)
     .map((file) => file.replaceAll("\\", "/").replace(/^\//, ""));

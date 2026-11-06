@@ -1,3 +1,5 @@
+import { readStoredValue } from "../../storage";
+
 export interface Identity {
   id: string;
   token: string;
@@ -13,12 +15,12 @@ export function saveIdentity(data: Identity): Identity {
     pin: data.pin,
     avatar: data.avatar,
   };
-  sessionStorage.setItem("quizhost:player", JSON.stringify(identity));
+  sessionStorage.setItem("qubix:player", JSON.stringify(identity));
   return identity;
 }
 export function storedIdentity(): Identity | null {
   try {
-    return JSON.parse(sessionStorage.getItem("quizhost:player") ?? "null");
+    return JSON.parse(readStoredValue(sessionStorage, "qubix:player") ?? "null");
   } catch {
     return null;
   }

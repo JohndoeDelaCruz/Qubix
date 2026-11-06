@@ -16,6 +16,7 @@ import { useSwitchMotion } from "../../components/useSwitchMotion";
 import { GameStage } from "../../components/game/GameStage";
 import { PreQuestionCountdown } from "../../components/game/PreQuestionCountdown";
 import { useStudentViewport } from "./useStudentViewport";
+import { PhysicsBackdrop } from "../../components/PhysicsBackdrop";
 
 export function Student() {
   useStudentViewport();
@@ -38,9 +39,13 @@ export function Student() {
   } = useStudentSession();
   useGameAudio(room, connected);
   const pageRef = useSwitchMotion(room?.id ?? "join");
+  const backgroundScene = !room ? "join" : room.phase === "lobby" ? "lobby" : room.phase === "ranking" ? "ranking" : room.phase === "finished" ? "finished" : "question";
+  const quietBackground = backgroundScene === "question";
   return (
     <div className={"student-shell student-phase-" + (room?.phase ?? "join")}>
+      <PhysicsBackdrop scene={backgroundScene} quiet={quietBackground} />
       <header className="student-header">
+        <PhysicsBackdrop placement="header" quiet={quietBackground} />
         <Logo />
         <MotionToggle />
         <AudioControls />

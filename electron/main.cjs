@@ -1,9 +1,10 @@
 const { app, BrowserWindow, dialog } = require("electron");
 const path = require("node:path");
 const { pathToFileURL } = require("node:url");
+const { desktopDataDirectory } = require("./data-path.cjs");
 let server;
 if (process.platform === "win32")
-  app.setAppUserModelId("com.quizhost.classroom");
+  app.setAppUserModelId("com.qubix.classroom");
 if (!app.requestSingleInstanceLock()) app.quit();
 else {
   app.whenReady().then(async () => {
@@ -12,7 +13,7 @@ else {
         pathToFileURL(path.join(app.getAppPath(), "dist/server/index.js")).href
       );
       const options = {
-        dataDir: path.join(app.getPath("userData"), "data"),
+        dataDir: desktopDataDirectory(app.getPath("appData"), app.getPath("userData")),
         staticDir: path.join(app.getAppPath(), "dist/client"),
         port: 3210,
       };
@@ -28,9 +29,9 @@ else {
         height: 960,
         minWidth: 1000,
         minHeight: 720,
-        backgroundColor: "#2c104e",
+        backgroundColor: "#160e32",
         autoHideMenuBar: true,
-        title: app.getVersion().includes("-beta") ? "QuizHost Beta" : "QuizHost",
+        title: "Qubix",
         icon: app.isPackaged
           ? path.join(process.resourcesPath, "icon.ico")
           : path.join(__dirname, "../assets/icon.ico"),
@@ -47,7 +48,7 @@ else {
       });
       await window.loadURL(server.hostURL);
     } catch (error) {
-      dialog.showErrorBox("QuizHost could not start", String(error.message));
+      dialog.showErrorBox("Qubix could not start", String(error.message));
       app.quit();
     }
   });

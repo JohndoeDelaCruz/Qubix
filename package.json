@@ -1,10 +1,10 @@
 {
-  "name": "quizhost",
-  "version": "0.1.4-beta.12",
+  "name": "qubix",
+  "version": "0.1.4",
   "private": true,
   "type": "module",
   "description": "An offline classroom quiz host for Windows",
-  "author": "QuizHost",
+  "author": "Qubix",
   "main": "electron/main.cjs",
   "scripts": {
     "dev": "tsx server/cli.ts",
@@ -43,8 +43,8 @@
     "vite": "^7.1.0"
   },
   "build": {
-    "appId": "com.quizhost.classroom",
-    "productName": "QuizHost",
+    "appId": "com.qubix.classroom",
+    "productName": "Qubix",
     "asar": true,
     "asarUnpack": [
       "node_modules/sql.js/dist/*.wasm"
@@ -70,6 +70,6 @@
       "icon": "assets/icon.ico",
       "signExecutable": false
     },
-    "artifactName": "QuizHost-${version}-Windows.${ext}"
+    "artifactName": "Qubix-${version}-Windows.${ext}"
   }
 }

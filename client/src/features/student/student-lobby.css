@@ -30,8 +30,21 @@
 }
 .student-lobby .floating-avatar-handle:focus-visible { outline: 2px dashed #ffe383; outline-offset: 3px; border-radius: 45%; }
 .floating-lobby-avatar.is-dragging .floating-avatar-handle { cursor: grabbing; }
-.floating-avatar-bob { display: block; flex: 0 0 auto; animation: lobby-avatar-float 4s ease-in-out var(--float-delay) infinite alternate; }
-.floating-avatar-bob .player-avatar { display: block; width: 64px; height: 64px; pointer-events: none; -webkit-user-drag: none; filter: drop-shadow(0 6px 5px #200a3d55); }
+.floating-avatar-bob { position: relative; isolation: isolate; display: block; flex: 0 0 auto; animation: lobby-avatar-float 4s ease-in-out var(--float-delay) infinite alternate; }
+.floating-avatar-bob .player-avatar { position: relative; z-index: 1; display: block; width: 64px; height: 64px; pointer-events: none; -webkit-user-drag: none; filter: drop-shadow(0 6px 5px #200a3d55); }
+.avatar-orbits, .avatar-orbits * { pointer-events: none; }
+.avatar-orbits { position: absolute; width: 84px; height: 84px; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+.avatar-orbit-plane { position: absolute; inset: 0; border: 1px solid #c2a5ff55; border-radius: 50%; transform: rotate(-22deg) scaleY(.48); }
+.avatar-orbit-plane + .avatar-orbit-plane { transform: rotate(22deg) scaleY(.48); border-color: #c2a5ff33; }
+.avatar-orbit-runner { position: absolute; inset: -1px; border-radius: 50%; animation: lobby-orbit 8s linear var(--float-delay) infinite; }
+.avatar-orbit-runner > span { position: absolute; width: 7px; height: 7px; right: -3px; top: calc(50% - 3px); border-radius: 50%; background: #c2a5ff; box-shadow: 0 0 6px #c2a5ff66; }
+.avatar-orbit-plane + .avatar-orbit-plane .avatar-orbit-runner { animation-duration: 11s; animation-direction: reverse; }
+.avatar-orbit-plane + .avatar-orbit-plane .avatar-orbit-runner > span { width: 5px; height: 5px; right: -2px; top: calc(50% - 2px); background: #e1c8ff; }
+.is-you .avatar-orbit-plane { border-color: #b8ed7b66; }
+.is-you .avatar-orbit-runner > span { background: #b8ed7b; box-shadow: 0 0 7px #b8ed7b77; }
+.is-dragging .avatar-orbit-runner,
+.student-lobby[data-motion-paused] .avatar-orbit-runner,
+.student-lobby[data-motion-paused] .floating-avatar-bob { animation-play-state: paused; }
 .floating-lobby-avatar.is-you .player-avatar { filter: drop-shadow(0 0 7px #ffdf6899); }
 .floating-lobby-avatar.is-dragging .floating-avatar-bob { animation-play-state: paused; }
 .floating-avatar-handle strong { max-width: 100%; font-size: 12px; line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: 0 2px 3px #260a49; }
@@ -45,6 +58,7 @@
 .student-lobby .student-welcome-slot { top: 58px; left: 6px; right: 6px; pointer-events: none; }
 .student-lobby .join-popup-copy > small { display: none; }
 @keyframes lobby-avatar-float { from { transform: translateY(4px) rotate(calc(var(--float-tilt) * -1)); } to { transform: translateY(-5px) rotate(var(--float-tilt)); } }
+@keyframes lobby-orbit { from { transform: rotate(0); } to { transform: rotate(360deg); } }
 @keyframes lobby-avatar-pop {
   0% { opacity: 0; transform: translateY(12px) scale(.6) rotate(-10deg); }
   65% { opacity: 1; transform: translateY(-4px) scale(1.12) rotate(5deg); }
@@ -59,15 +73,17 @@
   .lobby-roster-heading > span, .lobby-drag-hint { font-size: 10px; }
   .lobby-roster-space { --lobby-avatar-width: 80px; --lobby-avatar-height: 72px; }
   .floating-avatar-bob .player-avatar { width: 40px; height: 40px; }
+  .avatar-orbits { width: 56px; height: 56px; }
   .floating-avatar-handle strong { font-size: 11px; }
   .student-lobby .student-welcome-slot { top: 34px; }
   .student-lobby .join-popup { min-height: 78px; padding-top: 8px; padding-bottom: 8px; }
   .student-lobby .join-popup-avatar .player-avatar { width: 44px; height: 44px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .floating-avatar-bob, .floating-lobby-avatar.is-arriving .player-avatar { animation: none; }
+  .floating-avatar-bob, .avatar-orbit-runner, .floating-lobby-avatar.is-arriving .player-avatar { animation: none; }
   .floating-lobby-avatar { transition: none; }
 }
 [data-reduced-motion="true"] .floating-lobby-avatar { transition: none; }
 [data-reduced-motion="true"] .floating-avatar-bob,
+[data-reduced-motion="true"] .avatar-orbit-runner,
 [data-reduced-motion="true"] .floating-lobby-avatar.is-arriving .player-avatar { animation: none; }

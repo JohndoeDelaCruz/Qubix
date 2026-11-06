@@ -81,7 +81,13 @@ export function FloatingLobbyAvatar({ student, own, arriving, initial, arenaRef,
         aria-roledescription="draggable avatar" aria-describedby={descriptionId} title={student.name}
         onPointerDown={start} onPointerMove={dragTo} onPointerUp={stop} onPointerCancel={stop} onLostPointerCapture={stop}
         onKeyDown={keyboard} onDragStart={(event) => event.preventDefault()}>
-        <span className="floating-avatar-bob"><Avatar avatar={student.avatar} size={64} /></span>
+        <span className="floating-avatar-bob">
+          <span className="avatar-orbits" aria-hidden="true">
+            <span className="avatar-orbit-plane"><span className="avatar-orbit-runner"><span /></span></span>
+            <span className="avatar-orbit-plane"><span className="avatar-orbit-runner"><span /></span></span>
+          </span>
+          <Avatar avatar={student.avatar} size={64} />
+        </span>
         <strong aria-hidden="true">{student.name}</strong>
         <small aria-hidden="true" className={student.connected === false ? "is-reconnecting" : ""}>
           {student.connected === false ? "Reconnecting" : own ? "You" : ""}

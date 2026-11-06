@@ -4,6 +4,8 @@ import { Scores } from "../../../components/game/Scores";
 import { ConnectionCard } from "../ConnectionCard";
 import { Avatar } from "../../../components/game/Avatar";
 import { JoinPopups } from "../../../components/game/JoinPopups";
+import { NewtonCradle } from "../../../components/NewtonCradle";
+import { PhysicsMark } from "../../../components/PhysicsBackdrop";
 import type { HostRoomProps } from "../types";
 
 export function RoomLobby({
@@ -16,7 +18,8 @@ export function RoomLobby({
 }: HostRoomProps) {
   return (
     <div className="room-grid">
-      <section className="card lobby-card">
+      <section className="card lobby-card physics-marked">
+        <PhysicsMark />
         <span className="eyebrow">GOOD THINGS START TOGETHER</span>
         <h2>
           {room.mode === "individual"
@@ -72,7 +75,8 @@ export function RoomLobby({
           Close this room
         </button>
       </section>
-      <section className="card roster-panel">
+      <section className="card roster-panel physics-marked">
+        <PhysicsMark kind="magnet" />
         <div className="section-heading">
           <h3>{room.mode === "individual" ? "Who’s here" : "Your teams"}</h3>
           <Pill>{room.scores.length}</Pill>
@@ -90,6 +94,7 @@ export function RoomLobby({
             No phones, logins, or Wi-Fi needed for this mode.
           </p>
         )}
+        <NewtonCradle />
       </section>
     </div>
   );

@@ -1,6 +1,6 @@
-# QuizHost application icon
+# Qubix application icon
 
-`icon.svg` is the editable source. It uses the existing QuizHost four-color mark on the app's purple background.
+`icon.svg` is the editable source. It uses the existing Qubix four-color mark on the app's purple background.
 
 - `icon.ico`: Windows icon containing 16, 24, 32, 48, 64, 128, and 256 pixel images.
 - `icon.png`: 512 pixel preview.

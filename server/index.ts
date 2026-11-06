@@ -237,7 +237,7 @@ export async function startServer(options: {
     if (!parsed.success) {
       res
         .status(400)
-        .json({ error: "Choose a QuizHost JSON backup with valid quizzes." });
+        .json({ error: "Choose a Qubix JSON backup with valid quizzes." });
       return;
     }
     try {

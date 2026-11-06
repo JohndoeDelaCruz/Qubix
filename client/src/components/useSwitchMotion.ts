@@ -73,11 +73,11 @@ export function useSwitchMotion(screenKey: string, style: Style = "page") {
             { opacity: 1, transform: "translateY(-2px) scale(1.02)", offset: 0.75 },
             { opacity: 1, transform: "translateY(0) scale(1)" },
           ] : [
-            { opacity: 0.15, transform: "translateY(8px)" },
+            { opacity: 0.15, transform: "translateY(12px)" },
             { opacity: 1, transform: "translateY(0)" },
           ];
           enter = node.animate(frames, {
-            duration: style === "game" ? 440 : style === "popup" ? 360 : 240,
+            duration: style === "game" ? 440 : style === "popup" ? 360 : 320,
             easing: "cubic-bezier(.2,.8,.2,1)",
           });
         } catch {

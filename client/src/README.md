@@ -4,7 +4,7 @@
 
 | Location | Responsibility |
 | --- | --- |
-| `features/host/Host.tsx` | Teacher navigation, workspace layout, page and dialog composition |
+| `features/host/Host.tsx`, `WorkspaceHeader.tsx` | Teacher workspace, sticky top navigation, page and dialog composition |
 | `features/host/useHostWorkspace.ts` | Teacher socket lifecycle, library/results loading, quiz persistence, and room commands |
 | `features/host/QuizLibrary.tsx` | Library cards, quiz import, and backups |
 | `features/host/ResultsPage.tsx` | Finished results and CSV export |
@@ -17,8 +17,10 @@
 | `features/student/Student.tsx` | Student layout and game-phase composition |
 | `features/student/useStudentSession.ts`, `identity.ts` | Joining, reconnection, answer submission, and session identity |
 | `features/student/JoinForm.tsx`, `StudentLobby.tsx`, `StudentQuestion.tsx`, `StudentFinish.tsx` | Individual student screens |
-| `features/student/StudentLobbyRoster.tsx`, `FloatingLobbyAvatar.tsx`, `student-lobby.css` | Floating class avatars, bounded pointer/keyboard dragging, self/connection markers, and viewport-sized lobby pages |
+| `features/student/StudentLobbyRoster.tsx`, `FloatingLobbyAvatar.tsx`, `student-lobby.css` | Floating class avatars and orbiting dots, bounded pointer/keyboard dragging, self/connection markers, and viewport-sized lobby pages |
 | `components/` | Shared branding and small visual components |
+| `components/PhysicsBackdrop.tsx`, `PhysicsBackdrop.css` | Full mix ambient backgrounds, compact header/sidebar compositions, static surface marks and quiz-cover marbles |
+| `components/NewtonCradle.tsx`, `NewtonCradle.css`, `useDocumentVisible.ts` | Teacher-lobby cradle and visibility tracking used by the motion provider and lobbies to pause decorative motion in background tabs |
 | `components/useSwitchMotion.ts` | Page, question-tab, game-stage, and popup crossfades with inert outgoing copies and the shared motion preference |
 | `components/game/` | Shared answer tiles/shapes, timer, leaderboard, and podium |
 | `components/game/QuestionImage.tsx`, `images.css` | Question images and accessible, zoomable previews on teacher/student screens |
@@ -34,6 +36,7 @@
 | `components/game/useJoinNotices.ts`, `JoinPopups.tsx` | Room arrival events and one expiring welcome inside the roster or student waiting card |
 | `components/game/GameStage.tsx`, `celebrations.css` | Game-stage crossfades, avatar countdown styling, panel welcomes, and responsive layout |
 | `dark-theme.css` | Dark purple workspace, editor, dialog, and student surfaces |
+| `violet-theme.css`, `components/PhysicsArt.tsx`, `PhysicsArt.css` | Approved Violet appearance, horizontal library, and decorative pendulum/magnet/atom/lightning artwork |
 | `animation.tsx`, `animations.css` | Motion preference, leaderboard movement, and celebration effects |
 | `audio/` | Device sound preferences, persistent Web Audio mixer, game-stage selection, and accessible sound controls |
 | `client/public/audio/` | Supplied eight-track music pack in MP3 and OGG formats, served locally |
@@ -44,7 +47,7 @@ Add new behavior to its feature. Keep the application entry and page composition
 
 Global layout remains in `style.css`, with visual theme rules in `theme.css`. Keep their import order in `main.tsx`: layout, theme, images, animations, dark theme, gameplay, audio controls, then classroom celebrations. Reduced-motion overrides use the shared preference and device settings. `GameStage` animates its live container only when the stage key changes, preserving controls and avoiding replays on room score updates. `useSwitchMotion` briefly fades a visual copy of the outgoing pane; copies are inert, inaccessible, stripped of identifiers, and cleaned up on interruption or unmount. The live pane always updates immediately. Child text changes refresh the cached copy at most ten times a second without observing progress-bar styles.
 
-Student screen overrides load after common styles, followed by the team-only stylesheet. Keep the student document fixed to the visual viewport, but retain readable access to long content through text pages and image zoom. Do not hide full answer text without the reading controls. Student result pages pass a rank offset into `Scores` so page two never starts at rank one. `useScoreMotion` returns stable callback refs per player; recreating those refs on every timer render cancels the row animation.
+Student screen overrides load after common styles, followed by the team-only stylesheet and the final Violet appearance rules. Violet changes colors and teacher workspace layout; student viewport geometry and game rules stay in their feature styles. Keep the student document fixed to the visual viewport, but retain readable access to long content through text pages and image zoom. Do not hide full answer text without the reading controls. Student result pages pass a rank offset into `Scores` so page two never starts at rank one. `useScoreMotion` returns stable callback refs per player; recreating those refs on every timer render cancels the row animation. Decorative artwork uses bounded CSS sequences, respects the shared/device motion preference, and does not create game timers or animation loops in JavaScript.
 
 The student lobby uses the live room scores as its roster, including the server-assigned avatar and connection state. Avatars float without cards. `StudentLobbyRoster` measures the available space and pages the class without document scrolling; keep every player reachable when the viewport changes. `FloatingLobbyAvatar` supports mouse/touch pointer capture and arrow-key movement, clamps positions inside the visible arena, and keeps positions locally through page changes and room updates. Dragging is decorative on the current device and sends no game commands. Mark the current student with “You” and retain disconnected classmates with a reconnecting label. Arrival notices animate new avatars, while the shared welcome and page transitions provide the fade-out and honor reduced motion. Reconnection must not create another arrival or assign a new avatar.
 
@@ -52,7 +55,7 @@ Question and answer copy uses normal letter/word spacing, rather than the fixed 
 
 `AudioProvider` owns a mixer for the lifetime of the page, rather than individual game screens. Unlock playback synchronously from user actions before awaiting network requests. `useGameAudio` maps student room state into music, private feedback, and a deadline-aligned cue. `useHostAudio` selects library music separately from the active room, keeping Results and Setup silent. A teacher workspace click activates playback while respecting saved mute settings. Music does not restart on ordinary state updates, and pending audio work must be cancelled when its scene or sound settings become stale. Keep score/game timers independent of audio. Never broadcast a student's correctness before reveal or attach individual success/failure sounds to the teacher's individual-mode screen.
 
-Both roles default to unmuted sound, music/effects enabled, and volume 1. Sound preferences use `quizhost:sound:v2:<role>` so the new defaults apply once and later adjustments persist.
+Both roles default to unmuted sound, music/effects enabled, and volume 1. Sound preferences use `qubix:sound:v2:<role>` so the new defaults apply once and later adjustments persist.
 
 `useHostWorkspace` refreshes network details while visible and after focus returns. `ConnectionCard` preserves selection by URL and requests `/api/qr?address=...`; adapter indexes are unstable when networks change. The server accepts only one of its current local URLs and marks network/QR responses no-store. Adapter names help teachers choose the network used by phones. Local server readiness cannot prove that Windows Firewall or a hotspot permits another device to connect.
 

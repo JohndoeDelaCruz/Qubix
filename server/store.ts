@@ -6,6 +6,8 @@ import {
   readFileSync,
   writeFileSync,
   renameSync,
+  copyFileSync,
+  constants,
 } from "node:fs";
 import path from "node:path";
 import { randomUUID } from "node:crypto";
@@ -23,7 +25,11 @@ export class Store {
     const SQL = await initSqlJs({
       wasmBinary: Uint8Array.from(readFileSync(wasm)).buffer,
     });
-    const file = path.join(directory, "quizhost.sqlite");
+    const file = path.join(directory, "qubix.sqlite");
+    const legacyFile = path.join(directory, "quizhost.sqlite");
+    // Copy an earlier database once; retain the original as a backup.
+    if (!existsSync(file) && existsSync(legacyFile))
+      copyFileSync(legacyFile, file, constants.COPYFILE_EXCL);
     const db = existsSync(file)
       ? new SQL.Database(readFileSync(file))
       : new SQL.Database();

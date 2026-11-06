@@ -1,0 +1,184 @@
+/* Full mix background. Its absolute layers never participate in page geometry. */
+.host-shell .main { position: relative; isolation: isolate; }
+.host-shell .content { position: relative; z-index: 1; }
+.workspace-header, .student-header { isolation: isolate; }
+.workspace-header-top, .workspace-nav { position: relative; z-index: 1; }
+.student-header { position: relative; }
+.student-header > :not(.physics-backdrop) { z-index: 1; }
+.student-main { position: relative; z-index: 1; }
+.student-shell { isolation: isolate; background-image: none; }
+.lobby-roster-space { background-image: none; }
+.student-shell > .pb-page { top: 64px; }
+.physics-backdrop {
+  --pb-gold: #ffce63; --pb-pink: #eea4c2;
+  position: absolute; inset: 0; overflow: hidden; z-index: 0;
+  color: var(--accent); opacity: .34; pointer-events: none; user-select: none;
+  transition: opacity 240ms ease-out;
+}
+.physics-backdrop * { pointer-events: none; }
+.physics-backdrop::before {
+  content: ""; position: absolute; inset: 0; opacity: .35;
+  background: radial-gradient(circle, currentColor 1px, transparent 1.4px) 0 0 / 43px 43px;
+  mask-image: radial-gradient(ellipse at center, transparent 15%, #000 90%);
+}
+.physics-backdrop::after {
+  content: ""; position: absolute; width: 460px; height: 460px; right: -150px; top: -160px;
+  background: radial-gradient(circle, #a57ce866, transparent 67%);
+}
+.pb-orbits { position: absolute; width: 430px; height: 430px; right: -210px; top: -150px; transform: rotate(-30deg) scaleY(.58); }
+.pb-orbits > span { position: absolute; inset: 0; border: 1px solid currentColor; border-radius: 50%; }
+.pb-orbits > span:nth-child(2) { inset: 43px; opacity: .7; }
+.pb-orbits > span:nth-child(3) { inset: 87px; opacity: .4; }
+.pb-orbits > b { position: absolute; inset: 0; border-radius: 50%; animation: pb-orbit-turn 32s linear 2; }
+.pb-orbits > b::after { content: ""; position: absolute; right: -3px; top: 49%; width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 13px var(--green); }
+.pb-orbits-lower { width: 370px; height: 370px; right: auto; top: auto; left: -240px; bottom: -125px; transform: rotate(28deg) scaleY(.67); }
+.pb-dial { position: absolute; right: -111px; top: -160px; width: 312px; height: 312px; border-radius: 50%; background: repeating-conic-gradient(from 0deg, #c2a5ff88 0deg .4deg, transparent .4deg 9deg); mask-image: radial-gradient(circle, transparent 63%, #000 63.5%, #000 65%, transparent 65.5%); transform: rotate(-11deg); }
+.pb-particles { position: absolute; inset: 0; }
+.pb-particles > span { position: absolute; left: var(--px); top: var(--py); width: var(--ps); height: var(--ps); border-radius: 50%; background: currentColor; opacity: var(--po); animation: pb-particle 12s ease-in-out var(--pd) 3 alternate; }
+.pb-pendulum { position: absolute; width: 106px; height: 119px; left: 12%; top: 23%; transform: rotate(-14deg); opacity: .65; }
+.pb-pendulum::before { content: ""; position: absolute; top: 2px; width: 106px; height: 3px; background: currentColor; border-radius: 5px; }
+.pb-pendulum > span { position: absolute; left: 51px; top: 5px; width: 2px; height: 76px; background: currentColor; transform-origin: 50% 0; animation: pb-swing 3.8s ease-in-out 6 alternate; }
+.pb-pendulum > span::after { content: ""; position: absolute; width: 24px; height: 24px; left: -11px; bottom: -12px; border: 2px solid currentColor; border-radius: 50%; background: var(--surface-deep); }
+.pb-spring { position: absolute; right: -17px; top: 33%; width: 64px; height: 136px; transform: rotate(13deg); }
+.pb-spring::before { content: ""; position: absolute; left: 7px; top: 0; height: 2px; width: 49px; background: currentColor; }
+.pb-coil { position: absolute; top: 8px; left: 15px; width: 35px; height: 72px; transform-origin: 50% 0; animation: pb-coil 4.6s ease-in-out 4 alternate; }
+.pb-coil > span { position: absolute; top: calc(var(--turn) * 9px); width: 35px; height: 15px; border: 1.5px solid currentColor; border-radius: 50%; transform: rotate(-16deg); }
+.pb-coil::after { content: ""; position: absolute; top: 76px; width: 28px; height: 30px; left: 4px; border: 2px solid currentColor; border-radius: 6px; background: var(--surface-deep); }
+.pb-pulley { position: absolute; left: -17px; bottom: 8%; width: 82px; height: 156px; transform: rotate(-12deg); }
+.pb-pulley-wheel { position: absolute; left: 23px; top: 5px; width: 40px; height: 40px; border: 2px solid currentColor; border-radius: 50%; }
+.pb-pulley-wheel::after { content: ""; position: absolute; width: 8px; height: 8px; left: 14px; top: 14px; border: 1.5px solid currentColor; border-radius: 50%; }
+.pb-pulley-weight { position: absolute; top: 24px; left: 23px; width: 1.5px; height: 84px; background: currentColor; }
+.pb-pulley-weight + .pb-pulley-weight { left: 61px; height: 111px; }
+.pb-pulley-weight::after { content: ""; position: absolute; left: -9px; bottom: -17px; width: 20px; height: 23px; border: 2px solid currentColor; border-radius: 4px; background: var(--surface-deep); }
+.pb-lever { position: absolute; width: 142px; height: 70px; left: 24%; bottom: -18px; transform: rotate(-6deg); }
+.pb-lever > span { position: absolute; width: 142px; height: 3px; background: currentColor; top: 27px; transform: rotate(-12deg); }
+.pb-lever > span::before, .pb-lever > span::after { content: ""; position: absolute; width: 16px; height: 16px; bottom: 4px; left: 12px; border: 1.5px solid currentColor; border-radius: 50%; background: var(--surface-deep); }
+.pb-lever > span::after { left: auto; right: 12px; width: 23px; height: 23px; }
+.pb-lever::after { content: ""; position: absolute; left: 60px; top: 29px; width: 27px; height: 25px; background: currentColor; clip-path: polygon(50% 0, 100% 100%, 0 100%); opacity: .65; }
+.pb-magnet { position: absolute; width: 63px; height: 63px; left: 68%; top: 17px; transform: rotate(-26deg); color: var(--pb-pink); }
+.pb-magnet > svg, .pb-atom > svg { width: 100%; height: 100%; stroke-width: 1.2; }
+.pb-magnet::before, .pb-magnet::after { content: ""; position: absolute; width: 5px; height: 5px; border-radius: 50%; background: var(--green); left: -9px; top: 8px; box-shadow: -11px -12px 0 -1px currentColor, -19px 10px 0 -1px currentColor; }
+.pb-magnet::after { left: 30px; top: -17px; transform: rotate(65deg); }
+.pb-atom { position: absolute; width: 72px; height: 72px; left: -15px; top: 34%; transform: rotate(12deg); }
+.pb-collision { position: absolute; right: -20px; bottom: 12%; width: 135px; height: 55px; transform: rotate(-32deg); }
+.pb-collision > span { position: absolute; width: 25px; height: 25px; top: 14px; left: 38px; border: 1.5px solid currentColor; border-radius: 50%; animation: pb-collision 4s ease-in-out 5 alternate; }
+.pb-collision > span + span { left: 72px; width: 32px; height: 32px; top: 10px; color: var(--green); animation-direction: alternate-reverse; }
+.pb-collision::before { content: ""; position: absolute; left: 0; top: 23px; width: 29px; height: 1px; background: currentColor; box-shadow: 5px -6px currentColor, 5px 6px currentColor; }
+.pb-energy { position: absolute; right: 13%; bottom: 18px; width: 133px; height: 58px; transform: rotate(9deg); }
+.pb-energy > svg { width: 25px; height: 25px; position: absolute; left: 54px; top: 17px; stroke-width: 1.4; }
+.pb-energy > span { position: absolute; width: 8px; height: 8px; border: 1.5px solid currentColor; border-radius: 50%; left: 5px; top: 10px; }
+.pb-energy > span + span { left: 116px; top: 43px; color: var(--green); }
+.pb-energy::before, .pb-energy::after { content: ""; width: 43px; height: 1px; background: currentColor; position: absolute; top: 23px; left: 12px; transform: rotate(19deg); }
+.pb-energy::after { left: 76px; top: 38px; }
+.pb-gyro { position: absolute; width: 115px; height: 102px; left: 45%; top: -7px; transform: rotate(-8deg); }
+.pb-gyro::after { content: ""; position: absolute; bottom: 1px; left: 30px; width: 58px; height: 4px; background: currentColor; border-radius: 5px; }
+.pb-gyro-core { position: absolute; inset: 0 0 12px; animation: pb-precess 9s ease-in-out 4 alternate; }
+.pb-gyro-core > span { position: absolute; inset: 14px 0; border: 2px solid currentColor; border-radius: 50%; transform: rotate(-33deg) scaleY(.52); background: #c2a5ff08; box-shadow: 0 0 15px #c2a5ff10; }
+.pb-gyro-core > span:nth-child(2) { transform: rotate(38deg) scaleY(.52); color: var(--green); }
+.pb-gyro-core > span:nth-child(3) { transform: rotate(92deg) scaleY(.52); }
+.pb-gyro-core > b { position: absolute; width: 17px; height: 17px; left: 49px; top: 36px; border-radius: 50%; background: radial-gradient(circle at 28% 25%, #fff0bd, var(--pb-gold) 55%, #ae7b35); box-shadow: 0 0 18px #ffce6344; }
+.pb-track { position: absolute; width: 154px; height: 71px; right: -35px; top: 53%; transform: rotate(-32deg); }
+.pb-track::before { content: ""; position: absolute; left: 4px; top: 8px; width: 140px; height: 53px; border-bottom: 2px solid currentColor; border-radius: 0 0 50% 50%; box-shadow: 0 6px 0 -5px currentColor; }
+.pb-track > span { position: absolute; width: 13px; height: 13px; border-radius: 50%; background: radial-gradient(circle at 28% 25%, #e1ffc2, var(--green) 58%, #719747); offset-path: path("M8 20 Q75 87 141 20"); offset-rotate: 0deg; animation: pb-roll 6s ease-in-out 5 alternate; box-shadow: 0 0 13px #b8ed7b44; }
+.pb-dominos { position: absolute; width: 146px; height: 54px; left: 53%; top: 412px; transform: rotate(-6deg); }
+.pb-dominos::after { content: ""; position: absolute; bottom: 5px; left: 0; right: 0; height: 1px; background: currentColor; opacity: .7; }
+.pb-dominos > span { position: absolute; left: calc(9px + var(--domino) * 25px); bottom: 7px; width: 15px; height: 31px; border: 1.5px solid currentColor; border-radius: 3px; background: linear-gradient(135deg, #c2a5ff44, #c2a5ff0a); transform-origin: 100% 100%; animation: pb-domino 7s ease-in-out calc(var(--domino) * .18s) 4; }
+.pb-dominos > span::before { content: ""; position: absolute; width: 3px; height: 3px; top: 6px; left: 4px; border-radius: 50%; background: currentColor; box-shadow: 0 14px currentColor; }
+.pb-dominos > span::after { content: ""; position: absolute; left: 2px; right: 2px; top: 14px; height: 1px; background: currentColor; }
+.pb-dominos > span:nth-child(3) { color: var(--green); }
+.pb-balance { position: absolute; width: 126px; height: 116px; left: -26px; top: 43%; transform: rotate(12deg); }
+.pb-balance::before { content: ""; position: absolute; left: 62px; top: 10px; height: 95px; width: 2px; background: currentColor; }
+.pb-balance::after { content: ""; position: absolute; left: 40px; bottom: 8px; width: 46px; height: 4px; border-radius: 6px; background: currentColor; }
+.pb-balance-beam { position: absolute; left: 8px; top: 28px; width: 110px; height: 2px; background: currentColor; transform-origin: 50% 50%; animation: pb-balance 6s ease-in-out 5 alternate; }
+.pb-balance-beam > span { position: absolute; top: 0; left: 12px; height: 42px; width: 1px; background: currentColor; }
+.pb-balance-beam > span + span { left: 94px; }
+.pb-balance-beam > span::after { content: ""; position: absolute; width: 30px; height: 13px; left: -14px; top: 40px; border: 1.5px solid currentColor; border-top: 0; border-radius: 0 0 50% 50%; background: #c2a5ff15; }
+.pb-circuit { position: absolute; width: 170px; height: 90px; right: 15%; bottom: -5px; color: var(--green); opacity: .8; }
+.pb-circuit > i { position: absolute; left: 5px; top: 15px; width: 70px; height: 35px; border-bottom: 1.5px solid currentColor; border-right: 1.5px solid currentColor; border-radius: 0 0 7px 0; }
+.pb-circuit > i + i { left: 75px; top: 49px; width: 80px; height: 28px; border-right: 0; border-left: 1.5px solid currentColor; border-top: 1.5px solid currentColor; border-bottom: 0; border-radius: 7px 0 0 0; }
+.pb-circuit > span { position: absolute; width: 9px; height: 9px; left: 1px; top: 11px; border: 1.5px solid currentColor; border-radius: 50%; background: var(--surface-deep); box-shadow: 0 0 9px #b8ed7b22; }
+.pb-circuit > span:nth-of-type(2) { left: 71px; top: 44px; }
+.pb-circuit > span:nth-of-type(3) { left: 151px; top: 72px; }
+.pb-circuit > b { position: absolute; width: 5px; height: 5px; border-radius: 50%; background: currentColor; box-shadow: 0 0 10px currentColor; offset-path: path("M5 15 L75 15 L75 49 L155 49 L155 77"); animation: pb-charge 9s linear 4; }
+/* A smaller header composition keeps the existing navigation and audio controls clear. */
+.pb-header { opacity: .27; }
+.pb-header .pb-pendulum { left: 32%; top: -11px; transform: rotate(16deg) scale(.6); opacity: 1; }
+.pb-header .pb-gyro { top: -27px; left: 47%; transform: rotate(19deg) scale(.56); opacity: .9; }
+.pb-header .pb-magnet { left: 75%; top: 67px; width: 37px; height: 37px; opacity: .75; }
+.pb-header .pb-atom { left: 91%; top: 57px; width: 51px; height: 51px; opacity: .6; }
+.pb-header .pb-orbits { top: -237px; right: 12%; width: 490px; height: 490px; }
+.pb-header .pb-circuit { right: 9%; bottom: -37px; transform: scale(.75); opacity: .65; }
+.pb-header .pb-dial { right: 20%; top: -240px; }
+.pb-sidebar { opacity: .22; }
+.pb-sidebar .pb-orbits { top: auto; bottom: 15px; right: -260px; }
+.pb-sidebar .pb-spring { right: 15px; top: auto; bottom: 45px; opacity: .7; }
+.pb-sidebar .pb-dial { display: none; }
+.question-sidebar { position: relative; isolation: isolate; }
+.question-sidebar > :not(.physics-backdrop) { position: relative; z-index: 1; }
+.physics-marked { position: relative; isolation: isolate; }
+.physics-surface-mark { position: absolute; right: 0; bottom: 0; width: 95px; height: 95px; overflow: hidden; opacity: .09; color: var(--accent); pointer-events: none; z-index: -1; }
+.physics-surface-mark > svg { width: 100%; height: 100%; stroke-width: 1; transform: translate(13px, 15px); }
+.quiz-cover { position: relative; }
+.physics-cover-marble { position: absolute; left: 0; top: 0; width: 7px; height: 7px; border-radius: 50%; opacity: .6; background: #ffce63; box-shadow: 0 0 9px #ffce6333; pointer-events: none; offset-path: path("M14 125 Q57 79 101 125"); animation: pb-roll 8s ease-in-out 4 alternate; }
+.pb-page[data-scene="ranking"] .pb-gyro { left: 12%; top: 55px; transform: rotate(-14deg) scale(.9); }
+.pb-page[data-scene="ranking"] .pb-dominos { left: 64%; top: 126px; transform: rotate(-7deg) scale(.7); }
+.pb-page[data-scene="question"] .pb-gyro { left: 44%; top: -35px; transform: scale(.7); opacity: .6; }
+.pb-page[data-scene="question"] .pb-dominos { top: auto; bottom: -14px; left: 29%; transform: scale(.7); opacity: .6; }
+.pb-page[data-scene="setup"] .pb-gyro { left: 75%; top: 3px; transform: scale(.6); }
+.pb-page[data-scene="setup"] .pb-dominos { top: auto; bottom: 16px; }
+.pb-page[data-scene="results"] .pb-dominos { top: auto; bottom: 45px; left: 36%; }
+.pb-page[data-scene="results"] .pb-spring { right: 5%; top: auto; bottom: 28px; transform: rotate(-17deg); }
+.student-shell > .pb-page { opacity: .25; }
+.student-shell > .pb-page .pb-orbits { right: -300px; top: -160px; }
+.student-shell > .pb-page .pb-orbits-lower { left: -285px; top: auto; bottom: -220px; }
+.student-shell > .pb-page :is(.pb-pulley, .pb-gyro, .pb-dominos, .pb-balance) { display: none; }
+.student-shell > .pb-page .pb-pendulum { left: 55%; top: 40px; opacity: .45; transform: scale(.6); }
+.student-shell > .pb-page .pb-magnet { top: 150px; left: -22px; transform: rotate(-26deg) scale(.6); opacity: .7; }
+.student-shell > .pb-page .pb-spring { right: -31px; top: 48%; transform: scale(.6); opacity: .7; }
+.student-shell > .pb-page .pb-lever { bottom: -7px; left: -29px; transform: scale(.6); opacity: .7; }
+.student-shell > .pb-page .pb-energy { bottom: 0; right: -34px; transform: scale(.6); opacity: .7; }
+.student-shell > .pb-page .pb-atom { top: 18%; left: 82%; opacity: .35; transform: scale(.6); }
+.student-shell > .pb-page .pb-track { right: -60px; top: 59%; transform: rotate(-27deg) scale(.65); opacity: .8; }
+.student-shell > .pb-page .pb-circuit { right: -35px; bottom: -5px; transform: scale(.6); opacity: .6; }
+.student-header .pb-header { opacity: .15; }
+.student-header .pb-header :is(.pb-pendulum, .pb-magnet, .pb-circuit, .pb-gyro) { display: none; }
+.student-header .pb-header .pb-atom { left: 58%; top: -8px; }
+.physics-backdrop.pb-quiet { opacity: .19; }
+.student-header .physics-backdrop.pb-quiet { opacity: .1; }
+.physics-backdrop.pb-quiet *, .physics-backdrop.pb-quiet *::after,
+[data-page-hidden="true"] .physics-backdrop *, [data-page-hidden="true"] .physics-backdrop *::after,
+[data-page-hidden="true"] .physics-cover-marble { animation-play-state: paused; }
+.fade-snapshot .physics-backdrop *, .fade-snapshot .physics-backdrop *::after,
+.fade-snapshot .physics-cover-marble { animation: none !important; }
+@keyframes pb-orbit-turn { from { transform: rotate(-90deg); } to { transform: rotate(270deg); } }
+@keyframes pb-particle { from { transform: translate(0, 0); } to { transform: translate(8px, -12px); } }
+@keyframes pb-swing { from { transform: rotate(-24deg); } to { transform: rotate(24deg); } }
+@keyframes pb-coil { from { transform: scaleY(.88); } to { transform: scaleY(1.07); } }
+@keyframes pb-collision { from { transform: translateX(-6px); } to { transform: translateX(3px); } }
+@keyframes pb-precess { from { transform: rotate(-9deg); } to { transform: rotate(12deg); } }
+@keyframes pb-roll { from { offset-distance: 0%; } to { offset-distance: 100%; } }
+@keyframes pb-domino { 0%, 12%, 86%, 100% { transform: rotate(0); } 30%, 65% { transform: rotate(48deg); } }
+@keyframes pb-balance { from { transform: rotate(-7deg); } to { transform: rotate(7deg); } }
+@keyframes pb-charge { 0% { offset-distance: 0%; opacity: 0; } 8%, 90% { opacity: 1; } 100% { offset-distance: 100%; opacity: 0; } }
+@media (max-width: 900px) {
+  .pb-dominos { left: 48%; top: 409px; transform: rotate(-6deg) scale(.7); opacity: .75; }
+}
+@media (max-width: 700px) {
+  .pb-page .pb-gyro { left: 61%; top: 71px; transform: rotate(12deg) scale(.53); opacity: .6; }
+  .pb-page .pb-dominos { top: 590px; left: 54%; transform: rotate(-6deg) scale(.55); opacity: .6; }
+  .pb-page .pb-balance, .pb-page .pb-magnet { display: none; }
+  .pb-page .pb-circuit { right: 4%; opacity: .5; }
+  .pb-header .pb-gyro { top: -19px; left: 66%; transform: scale(.5); }
+  .pb-header .pb-circuit { right: -47px; }
+  .pb-header .pb-dial { top: -218px; right: -28px; }
+  .physics-cover-marble { offset-path: path("M6 123 Q41 87 77 123"); }
+}
+@media (max-height: 470px) {
+  .student-shell > .pb-page { opacity: .17; }
+  .student-shell > .pb-page .pb-energy { display: none; }
+}
+[data-reduced-motion="true"] .physics-backdrop, [data-reduced-motion="true"] .physics-backdrop *,
+[data-reduced-motion="true"] .physics-backdrop *::after, [data-reduced-motion="true"] .physics-cover-marble { animation: none; transition: none; }
+@media (prefers-reduced-motion: reduce) {
+  .physics-backdrop, .physics-backdrop *, .physics-backdrop *::after, .physics-cover-marble { animation: none; transition: none; }
+}

@@ -4,6 +4,7 @@ import { Pill } from "../../components/Pill";
 import type { Identity } from "./identity";
 import { JoinPopups } from "../../components/game/JoinPopups";
 import { StudentLobbyRoster } from "./StudentLobbyRoster";
+import { useDocumentVisible } from "../../components/useDocumentVisible";
 
 export function StudentLobby({
   room,
@@ -16,8 +17,9 @@ export function StudentLobby({
   joinNotices: JoinNotice[];
   dismissJoinNotice: (id: string) => void;
 }) {
+  const visible = useDocumentVisible();
   return (
-    <section className="student-lobby" aria-label="Student lobby">
+    <section className="student-lobby" aria-label="Student lobby" data-motion-paused={!visible || undefined}>
       <div className="student-welcome-slot">
         <JoinPopups room={room} notices={joinNotices} playerId={identity?.id} onDismiss={dismissJoinNotice} />
       </div>

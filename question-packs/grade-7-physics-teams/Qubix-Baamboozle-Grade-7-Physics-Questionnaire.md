@@ -1,6 +1,6 @@
 # Grade 7 Physics Team Challenge — Questionnaire
 
-24 original questions for shared-screen team discussion in QuizHost. Topics: forces, motion and heat.
+24 original questions for shared-screen team discussion in Qubix. Topics: forces, motion and heat.
 
 Choose one answer per question and prepare a short explanation using the evidence or principle in the question. Each tile is worth 100 points. The teacher will reveal the answer and award the points.
 
